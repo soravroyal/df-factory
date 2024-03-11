@@ -115,6 +115,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SQL_Pool-External-Parquet')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'P@ssword@12345'\n\nCREATE DATABASE SCOPED CREDENTIAL SasToken\nWITH IDENTITY ='SHARED ACCESS SIGNATURE'\n,SECRET='sv=2022-11-02&ss=b&srt=sco&sp=rwlax&se=2024-03-31T16:43:30Z&st=2024-03-11T08:43:30Z&spr=https&sig=voucpcWgZbZigfu8ETUFLnJ9wjSOty0QdieS9usjvBI%3D'\n \n CREATE EXTERNAL DATA SOURCE log_data_parquet\nWITH(LOCATION = 'https://dataworkspaceacntt.blob.core.windows.net/parquet',\n                 CREDENTIAL = SasToken)\n\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat WITH(\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION='org.apache.hadoop.io.compress.SnappyCodec'\n    )\n\nCREATE EXTERNAL TABLE [logdata_parquet]\n(\n[Correlationid] varchar(200) NULL,\n[Operationname] varchar(200) NULL,\n[Status] varchar(100) NULL,\n[Eventcategory] varchar(100) NULL,\n[Level] varchar(100) NULL,\n[Time] varchar(100) NULL,\n[Subscription] varchar(200) NULL,\n[Eventinitiatedby] varchar(1000) NULL,\n[Resourcetype] varchar(1000) NULL,\n[Resourcegroup] varchar(1000) NULL,\n[Resource] varchar(2000) NULL\n)\nWITH (\n\tLOCATION = '/log.parquet',\n\tDATA_SOURCE = log_data_parquet,\n\tFILE_FORMAT = ParquetFileFormat\n)\n\nselect * from logdata_parquet",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "pooldb",
+						"poolName": "pooldb"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Serverless-External-Multiple_Parquet')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
@@ -193,6 +213,18 @@
 				"type": "SqlQuery"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/pooldb')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "southeastasia"
 		}
 	]
 }
