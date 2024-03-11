@@ -1,0 +1,17 @@
+{
+	"name": "Serverless-External-csv",
+	"properties": {
+		"content": {
+			"query": "CREATE DATABASE [appdb]\n\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'P@ssword@12345'\n\nCREATE DATABASE SCOPED CREDENTIAL SasToken\nWITH IDENTITY ='SHARED ACCESS SIGNATURE'\n,SECRET='sv=2022-11-02&ss=b&srt=sco&sp=rwl&se=2024-03-11T14:35:45Z&st=2024-03-11T06:35:45Z&spr=https&sig=id6La4cWvEQ8X1vfWXv9cA2bAjOgPDGjmyuqFvieEEs%3D'\n\nCREATE EXTERNAL DATA SOURCE log_data\nWITH(LOCATION = 'https://dataworkspaceacntt.blob.core.windows.net/csv',\n                 CREDENTIAL = SasToken)",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "appdb",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
