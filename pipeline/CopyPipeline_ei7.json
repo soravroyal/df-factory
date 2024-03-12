@@ -1,0 +1,176 @@
+{
+	"name": "CopyPipeline_ei7",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_ei7",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "csv//Log.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.pool_logdata"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "SqlPoolSink",
+						"writeBehavior": "Insert"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Correlation id",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Correlation id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Operation name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Operation name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Event category",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Event category",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Level",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Level",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Time",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Subscription",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Subscription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Event initiated by",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Event initiated by",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Resource type",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Resource type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Resource group",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Resource group",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Resource",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Resource",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_ei7",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_ei7",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
