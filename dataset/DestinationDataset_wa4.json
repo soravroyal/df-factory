@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_wa4",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "Product"
+		},
+		"sqlPool": {
+			"referenceName": "pooldb",
+			"type": "SqlPoolReference"
+		}
+	}
+}
