@@ -53,7 +53,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Parquet1",
+						"referenceName": "LogData_Parquet",
 						"type": "DatasetReference"
 					}
 				]
