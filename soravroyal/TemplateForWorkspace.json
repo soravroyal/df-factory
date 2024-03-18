@@ -764,7 +764,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "Parquet1",
+								"referenceName": "LogData_Parquet",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -778,7 +778,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/SourceDataset_9i6')]",
-				"[concat(variables('workspaceId'), '/datasets/Parquet1')]"
+				"[concat(variables('workspaceId'), '/datasets/LogData_Parquet')]"
 			]
 		},
 		{
@@ -1066,6 +1066,75 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/sqlPools/pooldb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/LogData_Parquet')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "dataworkspaceacntt",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "parquet"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Correlationid",
+						"type": "UTF8"
+					},
+					{
+						"name": "Operationname",
+						"type": "UTF8"
+					},
+					{
+						"name": "Status",
+						"type": "UTF8"
+					},
+					{
+						"name": "Eventcategory",
+						"type": "UTF8"
+					},
+					{
+						"name": "Level",
+						"type": "UTF8"
+					},
+					{
+						"name": "Time",
+						"type": "UTF8"
+					},
+					{
+						"name": "Subscription",
+						"type": "UTF8"
+					},
+					{
+						"name": "Eventinitiatedby",
+						"type": "UTF8"
+					},
+					{
+						"name": "Resourcetype",
+						"type": "UTF8"
+					},
+					{
+						"name": "Resourcegroup",
+						"type": "UTF8"
+					},
+					{
+						"name": "Resource",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/dataworkspaceacntt')]"
 			]
 		},
 		{
