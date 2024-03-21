@@ -1,0 +1,9 @@
+{
+	"name": "app-DataFactory1",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c5e5ddac-9915-46ca-a357-f42d890811b6",
+		"tenantId": "6c3fbf21-c980-424c-a1e2-658de6de3c5b"
+	}
+}
